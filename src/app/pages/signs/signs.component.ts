@@ -35,7 +35,6 @@ export class SignsComponent implements OnInit{
     private patientService: PatientService,
      private _snackBar: MatSnackBar){}
 
-
   ngOnInit(): void {
 
     this.signsService.findAll().subscribe((data) => {
@@ -51,7 +50,6 @@ export class SignsComponent implements OnInit{
     });
 
     this.patientService.findAll().subscribe((data) => (this.patients = data));
-
   }
 
 
@@ -60,9 +58,7 @@ export class SignsComponent implements OnInit{
     console.log(this.dataSource);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    
   }
-
 
   applyFilter(e: any){
     this.dataSource.filter = e.target.value.trim();

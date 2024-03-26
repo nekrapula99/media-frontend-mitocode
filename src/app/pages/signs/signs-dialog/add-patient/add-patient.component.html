@@ -1,0 +1,49 @@
+
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>New Patient Dialog</span>
+    </mat-toolbar>
+
+    <div class="example-container">
+            
+        <mat-form-field>
+            <label class="etiqueta" for="firstName"></label>
+            <input matInput placeholder="FirstName" [(ngModel)]="patient.firstName">      
+        </mat-form-field>
+        <mat-form-field>
+            <label for="lastName"></label> 
+            <input matInput placeholder="LastName" [(ngModel)]="patient.lastName">
+        </mat-form-field> 
+        <mat-form-field>
+            <label class="etiqueta" for="dni"></label>
+            <input matInput placeholder="Dni" [(ngModel)]="patient.dni">
+        </mat-form-field>
+
+        <mat-form-field>
+            <label class="etiqueta" for="address"></label>
+            <input matInput placeholder="Address" [(ngModel)]="patient.address">
+        </mat-form-field>
+
+        <mat-form-field>
+            <label class="etiqueta" for="phone"></label>
+            <input matInput placeholder="Phone" [(ngModel)]="patient.phone">
+        </mat-form-field>
+
+        <mat-form-field>
+            <label class="etiqueta" for="email"></label>
+            <input matInput placeholder="email" [(ngModel)]="patient.email">
+        </mat-form-field>
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="operate()">
+        <mat-icon>done</mat-icon>
+        <span>Done</span>
+    </button>
+
+    <button mat-raised-button color="accent" type="button" (click)="close()">
+        <mat-icon>cancel</mat-icon>
+        <span>Cancel</span>
+    </button>
+
+</mat-dialog-content>

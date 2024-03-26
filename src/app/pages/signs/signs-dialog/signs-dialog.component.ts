@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Signs } from '../../../model/signs';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SignsService } from '../../../services/signs.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { MaterialModule } from '../../../material/material.module';
@@ -9,6 +9,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Patient } from '../../../model/patient';
 import { PatientService } from '../../../services/patient.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddPatientComponent } from './add-patient/add-patient.component';
 
 @Component({
   selector: 'app-signs-dialog',
@@ -36,7 +37,8 @@ export class SignsDialogComponent implements OnInit{
     private dialogRef: MatDialogRef<SignsDialogComponent>,
     private signsService: SignsService,
     private patientService: PatientService,
-    private _snackBar : MatSnackBar
+    private _snackBar : MatSnackBar,
+    private _dialog: MatDialog
   ){}
 
   ngOnInit(): void {
@@ -47,6 +49,8 @@ export class SignsDialogComponent implements OnInit{
 
     this.patientService.findAll().subscribe((data) => (this.patients = data));
     this.patientsFiltered$ = this.patientControl.valueChanges.pipe(map(val => this.filterPatients(val)))
+
+    this.signsService.patientsFiltered$.subscribe((data) => (this.patients = data));
   }
 
   filterPatients(val: any){
@@ -89,13 +93,10 @@ export class SignsDialogComponent implements OnInit{
       });
     }else{
       //INSERT
-
       const tmpPatient = this.patientControl.value;
-      console.log('tmpPatient', tmpPatient);
       if(tmpPatient != null){
         this.patientSelected.push(tmpPatient);
         this.signs.patient = tmpPatient;
-        console.log('this.signs', this.signs);
       }else{
         this._snackBar.open('Please select a Patient', 'INFO', {duration: 2000})
       }
@@ -128,6 +129,16 @@ export class SignsDialogComponent implements OnInit{
 
   close(){
     this.dialogRef.close();
+  }
+
+  openDialog(patient?: Patient){
+
+    this._dialog.open(AddPatientComponent,{
+      width: '350px',
+      data: patient,
+      disableClose: false
+    } )
+
   }
 
 }
