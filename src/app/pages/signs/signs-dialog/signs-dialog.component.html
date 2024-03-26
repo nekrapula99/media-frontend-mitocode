@@ -1,0 +1,57 @@
+<!-- <form [formGroup]="formGroup"> -->
+
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Signs Dialog</span>
+    </mat-toolbar>
+
+    <div class="example-container">
+
+            <mat-form-field>
+                <input matInput placeholder="Patient"  [matAutocomplete]="autoPatient"
+                    [formControl]="patientControl">
+                <mat-autocomplete #autoPatient="matAutocomplete" [displayWith]="showPatient">
+                    @for (p of patientsFiltered$ | async; track $index) {
+                    <mat-option [value]="p">
+                        {{p.firstName}}  {{p.lastName}}
+                    </mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <label class="etiqueta" for="temperature">Temperature:</label>
+                <input matInput placeholder="Temperature" [(ngModel)]="signs.temperature">      
+            </mat-form-field>
+            <mat-form-field>
+                <label for="Pulse">Pulse:</label> 
+                <input matInput placeholder="Pulse" [(ngModel)]="signs.pulse">
+            </mat-form-field> 
+            <mat-form-field>
+                <label class="etiqueta" for="Heart Rate">Heart Rate:</label>
+                <input matInput placeholder="Heart Rate" [(ngModel)]="signs.heartRate">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Select a date</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" (dateChange)="getDate($event)"
+                [formControl]="dateControl" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="operate()">
+        <mat-icon>done</mat-icon>
+        <span>Done</span>
+    </button>
+
+    <button mat-raised-button color="accent" type="button" (click)="close()">
+        <mat-icon>cancel</mat-icon>
+        <span>Cancel</span>
+    </button>
+
+    </mat-dialog-content>
+<!-- </form> -->
